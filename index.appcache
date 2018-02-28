@@ -1,0 +1,16 @@
+CACHE MANIFEST
+#chrome浏览器支持，火狐浏览器支持度不够好
+#version 1
+#author by guoquanyou
+
+#CACHE 其后列出的是需要缓存的内容
+CACHE:
+/img/2.png
+#404.html
+
+# NETWORK 其后列出的是不进行缓存的内容，每次都需要从服务器端获取
+NETWORK:
+*
+#离线状况下代替文件 fallback 是如果无法建立因特网连接时加载的页面
+FALLBACK:
+/img/1.png /img/2.png

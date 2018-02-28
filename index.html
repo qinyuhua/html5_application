@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html manifest="index.appcache">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="css/index.css" />
+    <script type="text/javascript">
+        //判断浏览器是否能够连接互联网，online表示能够联网，offline表示不能联网；根据浏览器状态自动监听并进行响应【通过断开或开启本地连接进行测试】
+        /*var appCache = window.applicationCache; // window.applicationCache 对象是对浏览器的应用缓存的编程访问方式
+        //其 status 属性可用于查看缓存的当前状态。
+        //        applicationCache.status的值如下：
+        //
+        //　　0 === 未缓存
+        //
+        //　　1 === 空闲（缓存为最新状态）
+        //
+        //　　2 === 检查中
+        //
+        //　　3 === 下载中
+        //
+        //　　4 === 更新就绪
+        //
+        //　　5 === 缓存过期
+
+        appCache.update();
+        if (appCache.status == window.applicationCache.UPDATEREADY) {
+            appCache.swapCache();  // The fetch was successful, swap in the new cache.
+        }
+        window.addEventListener('load', function(e) {
+            window.applicationCache.addEventListener('updateready', function(e) {
+                if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
+                    window.applicationCache.swapCache();
+                    window.location.reload();
+                } else {
+                    // Manifest didn’t changed. Nothing new to server.
+                }
+
+            }, false);
+
+        }, false);*/
+
+
+        window.addEventListener("online", function() {
+//            alert("您已变成在线状态")
+            applicationCache.update();
+        }, true);
+        window.addEventListener("offline", function() {
+            alert("您已变成离线状态")
+        }, true);
+        //当index.manifest内容更新时，浏览器检查到存在更新，并进行提示
+        function init() {
+            setInterval("toUpdateCache()", 3000);
+        }
+        function toUpdateCache() {
+            //强制检查服务器上的manifest文件是否有更新
+            applicationCache.update();
+        }
+        applicationCache.onupdateready = function() {
+//            if (confirm("本地缓存已被更新,需要刷新页面来获取应用程序最新版本")) {
+                //手动更新本地缓存，只能在onupdateready事件触发时调用
+                applicationCache.swapCache();
+                location.reload();
+//            }
+        }
+//        if(window.applicationCache){
+//            alert("支持离线缓存");
+//        }
+//        else{
+//            alert("不支持离线缓存");
+//        }
+      //  window.location.href = 'indexcode.html';
+    </script>
+</head>
+<body onload="init()">
+<img src="img/1.png" /><img src="img/2.png" />
+<img src="img/3.png" /> 一个来自服务器端的传说2。
+<div id="msg"></div>
+</body>
+</html>
